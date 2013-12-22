@@ -23,6 +23,11 @@ class Timezone extends Component
      * @var string
      */
     protected $timezone;
+    
+    /**
+     * @var Array of TimezoneDescription
+     */
+    protected $descriptions;
 
     public function __construct($timezone)
     {
@@ -46,5 +51,14 @@ class Timezone extends Component
 
         $this->properties->set('TZID', $this->timezone);
         $this->properties->set('X-LIC-LOCATION', $this->timezone);
+        
+        foreach($this->descriptions as $description) {
+            $this->addComponent($description);               
+        }
+    }
+    
+    public function addDescriptions($descriptions)
+    {
+        $this->descriptions = $descriptions;
     }
 }

@@ -31,6 +31,7 @@ class Calendar extends Component
     protected $method = null;
     protected $name = null;
     protected $timezone = null;
+    protected $timezoneDescriptions = null;
 
     public function __construct($prodId)
     {
@@ -59,9 +60,10 @@ class Calendar extends Component
         $this->name = $name;
     }
 
-    public function setTimezone($timezone)
+    public function setTimezone($timezone, $descriptions = array())
     {
         $this->timezone = $timezone;
+        $this->timezoneDescriptions = $descriptions;
     }
 
     /**
@@ -83,7 +85,9 @@ class Calendar extends Component
 
         if ($this->timezone) {
             $this->properties->set('X-WR-TIMEZONE', $this->timezone);
-            $this->addComponent(new Timezone($this->timezone));
+            $timezone = new Timezone($this->timezone);
+            $timezone->addDescriptions($this->timezoneDescriptions);
+            $this->addComponent($timezone);
         }
     }
 

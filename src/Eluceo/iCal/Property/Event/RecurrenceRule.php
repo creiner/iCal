@@ -2,7 +2,6 @@
 
 namespace Eluceo\iCal\Property\Event;
 
-use Eluceo\iCal\Component\Event;
 use Eluceo\iCal\Property\ValueInterface;
 use Eluceo\iCal\ParameterBag;
 
@@ -20,7 +19,7 @@ class RecurrenceRule implements ValueInterface
      */
     protected $freq = self::FREQ_YEARLY;
 
-    /**
+    /** 
      * @var null|int
      */
     protected $interval = 1;
@@ -30,6 +29,16 @@ class RecurrenceRule implements ValueInterface
      */
     protected $count = null;
 
+    /**
+     * @var null|string
+     */
+    protected $byDay = null;
+    
+    /**
+     * @var null|int
+     */
+    protected $byMonth = null;
+    
     /**
      * Return the value of the Property as an escaped string.
      *
@@ -57,6 +66,14 @@ class RecurrenceRule implements ValueInterface
 
         if (null !== $this->count) {
             $parameterBag->setParam('COUNT', $this->count);
+        }
+
+        if (null !== $this->byDay) {
+            $parameterBag->setParam('BYDAY', $this->byDay);
+        }
+		
+        if (null !== $this->byMonth) {
+            $parameterBag->setParam('BYMONTH', $this->byMonth);
         }
 
         return $parameterBag;
@@ -114,5 +131,37 @@ class RecurrenceRule implements ValueInterface
     public function getInterval()
     {
         return $this->interval;
+    }
+    
+    /**
+     * @param string|null $byDay
+     */
+    public function setByDay($byDay)
+    {
+        $this->byDay = $byDay;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getByDay()
+    {
+        return $this->byDay;
+    }
+	
+    /**
+     * @param int|null $byMonth
+     */    
+    public function setByMonth($byMonth)
+    {
+        $this->byMonth = $byMonth;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getByMonth()
+    {
+        return $this->byMonth;
     }
 }
