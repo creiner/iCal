@@ -151,6 +151,12 @@ class Event extends Component
             'DTSTAMP',
             $this->dtStamp ?: new \DateTime()
         ));
+
+        $this->properties->add($this->buildDateTimeProperty(
+            'LAST-MODIFIED',
+            $this->dtStamp ?: new \DateTime()
+        ));
+        
         $this->properties->add($this->buildDateTimeProperty('DTSTART', $this->dtStart, $this->noTime));
         $this->properties->set('SEQUENCE', $this->sequence);
         $this->properties->set('TRANSP', $this->transparency);
